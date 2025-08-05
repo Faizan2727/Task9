@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:alpine #using small image
+        image: nginx:alpine
         ports:
         - containerPort: 80
 ---
