@@ -1,6 +1,6 @@
 variable "project_id" {
   description = "The project ID to host the cluster in"
-  default     = "modular-edge-183716"
+  default     = "trim-mote-464705-a0"
 }
 variable "cluster_name" {
   description = "The name for the GKE cluster"
