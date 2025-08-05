@@ -26,4 +26,4 @@ jobs:
         gcloud container clusters get-credentials github-gke-cluster --zone ${{ secrets.GCP_ZONE }} --project=${{ secrets.GCP_PROJECT }}
 
     - name: Deploy App
-      run: kubectl apply -f k8s/
+      run: kubectl apply -f K8s/
