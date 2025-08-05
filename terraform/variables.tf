@@ -9,7 +9,9 @@ variable "region" {
   type        = string
   default     = "us-central1"
 }
-
+variable "zone" {
+  default = "us-central1-a"
+}
 variable "credentials_file" {
   description = "Path to the service account key file"
   type        = string
