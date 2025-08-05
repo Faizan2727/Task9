@@ -12,7 +12,7 @@ variable "env_name" {
 }
 variable "region" {
   description = "The region to host the cluster in"
-  default     = "us-west1"
+  default     = "us-central1"
 }
 variable "kubernetes_version" {
   description = "The Kubernetes version of the masters"
