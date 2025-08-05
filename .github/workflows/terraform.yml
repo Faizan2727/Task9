@@ -1,0 +1,30 @@
+name: Terraform Deploy
+
+on:
+  push:
+    paths:
+      - 'terraform/**'
+
+jobs:
+  terraform:
+    runs-on: self-hosted  # We'll set this up next
+    defaults:
+      run:
+        working-directory: terraform
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+
+    - name: Create Credentials File
+      run: |
+        echo "${{ secrets.GCP_SA_KEY }}" > credentials.json
+
+    - name: Terraform Init
+      run: terraform init
+
+    - name: Terraform Apply
+      run: terraform apply -auto-approve -var="project_id=${{ secrets.GCP_PROJECT }}" -var="region=${{ secrets.GCP_REGION }}" -var="credentials_file=credentials.json"
