@@ -20,7 +20,7 @@ jobs:
         gcloud config set compute/region ${{ secrets.GCP_REGION }}
         gcloud components install kubectl
         gcloud container clusters get-credentials github-gke-cluster --region=${{ secrets.GCP_REGION }}
-        gcloud container clusters get-credentials github-gke-cluster --zone us-central1-a --project=${{ secrets.GCP_PROJECT }}rim-mote-464705-a0
+        gcloud container clusters get-credentials github-gke-cluster --zone ${{ secrets.GCP_ZONE }} --project=${{ secrets.GCP_PROJECT }}rim-mote-464705-a0
 
     - name: Deploy App
       run: kubectl apply -f k8s/
