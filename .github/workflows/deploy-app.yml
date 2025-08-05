@@ -22,7 +22,7 @@ jobs:
         gcloud auth activate-service-account --key-file=key.json
         gcloud config set project ${{ secrets.GCP_PROJECT }}
         gcloud config set compute/region ${{ secrets.GCP_REGION }}
-        gcloud container clusters get-credentials github-gke-cluster --region=${{ secrets.GCP_REGION }}
+        gcloud container clusters get-credentials github-gke-cluster --zone=${{ secrets.GCP_ZONE }}
         gcloud container clusters get-credentials github-gke-cluster --zone ${{ secrets.GCP_ZONE }} --project=${{ secrets.GCP_PROJECT }}
 
     - name: Deploy App
