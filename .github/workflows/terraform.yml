@@ -11,6 +11,11 @@ jobs:
     defaults:
       run:
         working-directory: terraform
+      env:
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+        PROJECT_ID: ${{ secrets.PROJECT_ID }}
+        REGION: ${{ secrets.REGION }}
+        CLUSTER_NAME: ${{ secrets.CLUSTER_NAME }}
 
     steps:
     - name: Checkout
@@ -19,12 +24,21 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
 
-    - name: Create Credentials File
-      run: |
-        echo "${{ secrets.GCP_SA_KEY }}" > credentials.json
+    - name: Configure Google Cloud credentials
+      uses: google-github-actions/setup-gcloud@v1
 
+    - name: Authenticate gcloud
+      uses: google-github-actions/auth@v0
+      with:
+          credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
+
+    - name: Debug Credentials
+      run: |
+          echo "GOOGLE_APPLICATION_CREDENTIALS: $GOOGLE_APPLICATION_CREDENTIALS"
+          gcloud auth list
+    
     - name: Terraform Init
       run: terraform init
 
     - name: Terraform Apply
-      run: terraform apply -auto-approve -var="project_id=${{ secrets.GCP_PROJECT }}" -var="region=${{ secrets.GCP_REGION }}" -var='credentials_json=${{ secrets.GCP_SA_KEY }}'
+      run: terraform apply -auto-approve 
