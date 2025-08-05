@@ -1,18 +1,19 @@
 provider "google" {
   project     = var.project_id
   region      = var.region
+  zone    = var.zone
 }
 
 resource "google_container_cluster" "primary" {
   name     = "github-gke-cluster"
-  location = var.region
+  location = var.zone
   remove_default_node_pool = true
   initial_node_count       = 1
 }
 
 resource "google_container_node_pool" "primary_nodes" {
   name       = "node-pool"
-  location   = var.region
+  location   = var.zone
   cluster    = google_container_cluster.primary.name
   initial_node_count = 1
   node_config {
